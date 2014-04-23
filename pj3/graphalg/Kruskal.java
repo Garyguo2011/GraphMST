@@ -19,6 +19,19 @@ public class Kruskal {
    * @param g The weighted, undirected graph whose MST we want to compute.
    * @return A newly constructed WUGraph representing the MST of g.
    */
-  public static WUGraph minSpanTree(WUGraph g);
+  public static WUGraph minSpanTree(WUGraph g){
+  	WUGraph mst = new WUGraph();
+  	Object[] vertices = g.getVertices();
+  	for (int i = 0; i < g.vertexCount(); i++){
+  		Object curVertex = vertices[i]
+  		mst.addVertex(curVertex);
+  		Neighbors neighbor = g.getNeighbors(curVertex);
+  		Object[] verList = neighbor.neighborList;
+  		int[] wList = neighbor.weightList;
+  	}
+  }
+
+
+  
 
 }
