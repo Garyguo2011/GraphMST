@@ -13,11 +13,11 @@ import dict.*;
 public class WUGraph {
 
   // private vertexNum;
-  private edgesNum;
-  HashTableChained vertexHashTable;
-  HashTableChained edgeHashTable;
-  DList vertexList;
-  DList edgeList;
+  private int edgesNum;
+  private HashTableChained vertexHashTable;
+  private HashTableChained edgeHashTable;
+  private DList vertexList;
+  private DList edgeList;
 
   /**
    * WUGraph() constructs a graph having no vertices or edges.
@@ -70,10 +70,10 @@ public class WUGraph {
 
     try{
       int index = 0;
-      DListNode walker = vertexList.front();
+      DListNode walker = (DListNode) vertexList.front();
       while(walker.isValidNode()){
         vertices[index] = ((VertexWithAdjacent)walker.item()).item;
-        walker = walker.next();
+        walker = (DListNode)walker.next();
         index ++;
       }
     }catch(InvalidNodeException e){
@@ -106,7 +106,7 @@ public class WUGraph {
    * Running time:  O(d), where d is the degree of "vertex".
    */
   public void removeVertex(Object vertex){
-    if(!this.isVertex()){
+    if(!this.isVertex(vertex)){
       return;
     }
     try{

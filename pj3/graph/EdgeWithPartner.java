@@ -1,6 +1,7 @@
 /* EdgeWithPartner.java */
 
 package graph;
+import list.*;
 
 /**
  * The EdgeWithPartner represent a edge between two vertices, also contain a
@@ -8,13 +9,13 @@ package graph;
  * adjacent list.
  */
 
-protected class EdgeWithPartner {
-  protected WeightedVertexPair edge;
-  protected DListNode partner;
-  protected DListNode self;
+class EdgeWithPartner {
+  WeightedVertexPair edge;
+  DListNode partner;
+  DListNode self;
   // protected VertexWithAdjacent opponent;
 
-  protected EdgeWithPartner(WeightedVertexPair i){
+  EdgeWithPartner(WeightedVertexPair i){
     this.edge = i;
     this.partner = null;
     this.self = null;

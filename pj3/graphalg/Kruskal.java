@@ -4,6 +4,7 @@ package graphalg;
 
 import graph.*;
 import set.*;
+import list.*;
 
 
 /**
@@ -31,7 +32,7 @@ public class Kruskal {
   	int counter = 0;
 
   	for (int i = 0; i < numVertices; i++){
-  		Object curVertex = vertices[i]
+  		Object curVertex = vertices[i];
   		vertexHashTable.insert(curVertex, counter);
   		counter++;
   		mst.addVertex(curVertex);

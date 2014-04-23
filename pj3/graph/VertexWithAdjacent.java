@@ -1,13 +1,14 @@
 /* VertexWithAdjacent.java */
 
 package graph;
+import list.*;
 
 /**
  * The VertexWithAdjacent class represents a weighted, undirected graph.  Self-edges are
  * permitted.
  */
 
-protected class VertexWithAdjacent {
+class VertexWithAdjacent {
 	Object item;
 	DList adjacentList;
 
