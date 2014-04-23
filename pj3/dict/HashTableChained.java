@@ -25,9 +25,6 @@ public class HashTableChained implements Dictionary {
 
   private List[] hashTable;
   private int numOfEntries;
-  private int numOfCollisions;
-
-
 
   /** 
    *  Construct a new empty hash table intended to hold roughly sizeEstimate
@@ -39,7 +36,6 @@ public class HashTableChained implements Dictionary {
     // Your solution here.
     this.hashTable = new DList[sizeEstimate];
     this.numOfEntries = 0;
-    this.numOfCollisions = 0;
   }
 
   /** 
@@ -115,8 +111,35 @@ public class HashTableChained implements Dictionary {
       hashTable[position] = new DList();
     }
     hashTable[position].insertBack(insertEntry);
+    numOfEntries ++;
+
+    //resize hashtable
+    if(this.loadFactor() > 0.5){
+      this.reSizeHashTable();
+    }
     return insertEntry;
   }
+
+  private void reSizeHashTable(){
+    List[] oldHashTable = hashtable;
+    this.hashTable = new DList[oldHashTable.length * 2];
+    this.numOfEntries = 0;
+    for (int i = 0; i < oldHashTable.length; i++) {
+      if(oldHashTable[i] != null){
+        try{
+          ListNode walker = oldHashTable[i].front();
+          while(walker.isValidNode()){
+            this.insert(((Entry)walker.item()).key(), ((Entry)walker.item()).value());
+            walker = walker.next();
+          }
+        }catch(InvalidNodeException e){
+          System.out.println(e);
+        }
+        oldHashTable[i] = null;
+      }// end if
+    }//end for
+  }
+
 
   /** 
    *  Search for an entry with the specified key.  If such an entry is found,
@@ -194,6 +217,7 @@ public class HashTableChained implements Dictionary {
       }catch(InvalidNodeException e){
         System.out.println(e);
       }
+      numOfEntries--;
       return null;
     }
   }
@@ -205,10 +229,16 @@ public class HashTableChained implements Dictionary {
     for (int i = 0; i < hashTable.length; i++) {
       hashTable[i] = null;
     }
+    numOfEntries = 0;
+  }
+
+  public double loadFactor(){
+    return (double)numOfEntries / (double)hashtable.length();
   }
 
 
   /* Addtional function for Collision Analysis */
+  /*  
   public void collisionsRate(){
     int collisions = 0;
     for (int i = 0; i < hashTable.length; i++) {
@@ -224,7 +254,7 @@ public class HashTableChained implements Dictionary {
     System.out.println("collisionsRate: " + colRate);
     return;
   }
-
+  */
   /* Addtional function for print hashtable to string */
 
   /* toString version 1: */
