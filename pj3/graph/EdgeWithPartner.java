@@ -14,7 +14,6 @@ class EdgeWithPartner {
   DListNode partner;
   DListNode self;
   DListNode parent;
-  // protected VertexWithAdjacent opponent;
 
   EdgeWithPartner(WeightedVertexPair i){
     this.edge = i;
@@ -22,10 +21,13 @@ class EdgeWithPartner {
     this.parent = null;
     this.self = null;
   }
-
+  
+  /*
   public String toString(){
   	String out = "";
   	out += "[ " + edge.object1.toString() + ", " + edge.object2.toString() + " $w: " + edge.weight +  "]";
   	return out;
   }
+  */
+
 }

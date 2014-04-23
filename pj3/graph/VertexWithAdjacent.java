@@ -8,7 +8,7 @@ import list.*;
  * permitted.
  */
 
-public class VertexWithAdjacent {
+class VertexWithAdjacent {
 	Object item;
 	DList adjacentList;
 
@@ -16,7 +16,8 @@ public class VertexWithAdjacent {
 		this.item = i;
 		this.adjacentList = new DList();
 	}
-
+	
+	/*
 	public String toString(){
 		String out = item.toString() + " -> ";
 		try{
@@ -34,4 +35,5 @@ public class VertexWithAdjacent {
 		}
 		return out;
 	}
+	*/
 }

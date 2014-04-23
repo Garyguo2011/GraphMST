@@ -302,10 +302,12 @@ public class WUGraph {
     try{
       VertexPair key = new VertexPair(u, v);
       DListNode eNode = (DListNode) edgeHashTable.find(key).value();
+
       // System.out.println("self: " + eNode.item());      
       // System.out.println("partner: " +   ((DListNode)((EdgeWithPartner)eNode.item()).partner).item()  )  ;
       // System.out.println("parent:" + ((EdgeWithPartner)eNode.item()).parent.item());
       // System.out.println();
+      
       if(!u.equals(v)){
         ((EdgeWithPartner)eNode.item()).partner.remove();  
       }
@@ -361,24 +363,4 @@ public class WUGraph {
     }
     return 0;
   }
-
-
-  /*
-   **************************************************************************
-   following mether for test
-  */
-
-   public HashTableChained vht(){
-    return vertexHashTable;
-   }
-
-
-
-
-
-
-
-
-
-
 }

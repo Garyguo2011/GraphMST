@@ -5,9 +5,6 @@
  */
 
 import graph.*;
-import list.*;
-import dict.*;
-import set.*;
 
 public class WUGTest {
 
@@ -873,7 +870,7 @@ public class WUGTest {
 
     Object vertArray[] = new Object[VERTICES];
     for (i = 0; i < VERTICES; i++) {
-      vertArray[i] = new Nothing(i);
+      vertArray[i] = new Nothing();
     }
 
     int score = 14 - vertexTest(vertArray) - edgeTest(vertArray);
@@ -888,7 +885,7 @@ public class WUGTest {
 }
 
 class Nothing {
-  int index;
+/*  int index;
   public Nothing(int i){
     this.index = i;
   }
@@ -897,5 +894,5 @@ class Nothing {
     String out = "v:";
     out += this.index;
     return out;
-  }
+  }*/
 }
