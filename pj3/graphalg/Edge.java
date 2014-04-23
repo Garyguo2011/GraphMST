@@ -2,6 +2,10 @@
 
 package graphalg;
 
+import graph.*;
+import set.*;
+import dict.*;
+
 /**
  * The VertexPair represents a pair of objects that act as vertices in a
  * WUGraph (weighted, undirected graph).  The purpose of a VertexPair is to
@@ -43,25 +47,9 @@ class Edge {
    */
   public int hashCode() {
     if (object1.equals(object2)) {
-      return object1.hashCode() + 1 + weight.hashCode();
+      return object1.hashCode() + 1 + ((Object)weight).hashCode();
     } else {
-      return object1.hashCode() + object2.hashCode() + weight.hashCode();
-    }
-  }
-
-  /**
-   * equals() returns true if this VertexPair represents the same unordered
-   * pair of objects as the parameter "o".  The order of the pair does not
-   * affect the equality test, so (u, v) is found to be equal to (v, u).
-   */
-  public boolean equals(Object o) {
-    if (o instanceof Edge) {
-      return ((object1.equals(((VertexPair) o).object1)) &&
-              (object2.equals(((VertexPair) o).object2))) ||
-             ((object1.equals(((VertexPair) o).object2)) &&
-              (object2.equals(((VertexPair) o).object1)));
-    } else {
-      return false;
+      return object1.hashCode() + object2.hashCode() + ((Object)weight).hashCode();
     }
   }
 }
