@@ -11,14 +11,26 @@ package graphalg;
  */
 
 class Edge {
-  protected Object object1;
-  protected Object object2;
-  protected int weight;
+  private Object object1;
+  private Object object2;
+  private int weight;
 
-  protected VertexPair(Object o1, Object o2, int w) {
+  protected Edge(Object o1, Object o2, int w) {
     object1 = o1;
     object2 = o2;
     weight = w;
+  }
+
+  public Object getObject1(){
+    return object1;
+  }
+
+  public Object getObject2(){
+    return object2;
+  }
+
+  public int getWeight(){
+    return weight;
   }
 
   /**
