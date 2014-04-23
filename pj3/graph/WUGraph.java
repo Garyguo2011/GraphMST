@@ -153,13 +153,12 @@ public class WUGraph {
    * Running time:  O(1).
    */
   public int degree(Object vertex){
+    if(!this.isVertex(vertex)){
+      return 0;
+    }
     try{
       DListNode v = (DListNode) vertexHashTable.find(vertex).value();
-      if(v == null){
-        return 0;
-      }else{
-        return ((VertexWithAdjacent)v.item()).adjacentList.length();
-      }
+      return ((VertexWithAdjacent)v.item()).adjacentList.length();
     }catch(InvalidNodeException e){
       System.out.println(e);
     }
@@ -236,22 +235,23 @@ public class WUGraph {
    */
   public void addEdge(Object u, Object v, int weight){
     try{
-      DListNode uNode = (DListNode)vertexHashTable.find(u).value();
-      DListNode vNode = (DListNode)vertexHashTable.find(v).value();
-      // not find either vertex
-      if(uNode == null || vNode == null){
+      
+      // u, v is not vertex
+      if(!this.isVertex(u) || !this.isVertex(v)){
         return;
       }
 
-      DListNode eNode = (DListNode) edgeHashTable.find(new VertexPair(u, v)).value();
       // the edges alread exist, update the weight;
-      if(eNode != null){
-        EdgeWithPartner e = (EdgeWithPartner) eNode.item();
+      Entry eEntry = edgeHashTable.find(new VertexPair(u, v));
+      if(eEntry != null){
+        EdgeWithPartner e = (EdgeWithPartner)((DListNode) eEntry.value()).item();
         e.edge.weight = weight;
         ((EdgeWithPartner)e.partner.item()).edge.weight = weight;
         return;
       }
 
+      DListNode uNode = (DListNode)vertexHashTable.find(u).value();
+      DListNode vNode = (DListNode)vertexHashTable.find(v).value();
       VertexWithAdjacent u1 = (VertexWithAdjacent)uNode.item();
       VertexWithAdjacent v1 = (VertexWithAdjacent)vNode.item();
 
@@ -262,19 +262,22 @@ public class WUGraph {
         u1.adjacentList.insertBack(selfEdge);
         selfEdge.partner = (DListNode) u1.adjacentList.back();
         selfEdge.self = (DListNode) u1.adjacentList.back();
+        selfEdge.parent = uNode;
         edgeHashTable.insert(new VertexPair(u, v), u1.adjacentList.back());
 
       }else{
         EdgeWithPartner eU = new EdgeWithPartner(weightedEdge);
         EdgeWithPartner eV = new EdgeWithPartner(weightedEdge);
-        u1.adjacentList.insertBack(eV);
-        v1.adjacentList.insertBack(eU);
+        u1.adjacentList.insertBack(eU);
+        v1.adjacentList.insertBack(eV);
 
         eU.self = (DListNode) u1.adjacentList.back();
         eU.partner = (DListNode) v1.adjacentList.back();
+        eU.parent = uNode;
 
         eV.self = (DListNode) v1.adjacentList.back();
         eV.partner = (DListNode) u1.adjacentList.back();
+        eV.parent = vNode;
 
         edgeHashTable.insert(new VertexPair(u, v), eU.self);
       }
@@ -299,7 +302,13 @@ public class WUGraph {
     try{
       VertexPair key = new VertexPair(u, v);
       DListNode eNode = (DListNode) edgeHashTable.find(key).value();
-      ((EdgeWithPartner)eNode.item()).partner.remove();
+      // System.out.println("self: " + eNode.item());      
+      // System.out.println("partner: " +   ((DListNode)((EdgeWithPartner)eNode.item()).partner).item()  )  ;
+      // System.out.println("parent:" + ((EdgeWithPartner)eNode.item()).parent.item());
+      // System.out.println();
+      if(!u.equals(v)){
+        ((EdgeWithPartner)eNode.item()).partner.remove();  
+      }
       edgeHashTable.remove(key);
       eNode.remove();
       edgesNum--;
@@ -319,8 +328,8 @@ public class WUGraph {
     if(!this.isVertex(u) || !this.isVertex(v)){
       return false;
     }
-    DListNode eNode = (DListNode) edgeHashTable.find(new VertexPair(u, v)).value();
-    if(eNode == null){
+    Entry eEntry = edgeHashTable.find(new VertexPair(u, v));
+    if(eEntry == null){
       return false;
     }else{
       return true;
@@ -352,4 +361,24 @@ public class WUGraph {
     }
     return 0;
   }
+
+
+  /*
+   **************************************************************************
+   following mether for test
+  */
+
+   public HashTableChained vht(){
+    return vertexHashTable;
+   }
+
+
+
+
+
+
+
+
+
+
 }

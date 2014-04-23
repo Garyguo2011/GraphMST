@@ -5,6 +5,9 @@
  */
 
 import graph.*;
+import list.*;
+import dict.*;
+import set.*;
 
 public class WUGTest {
 
@@ -454,6 +457,7 @@ public class WUGTest {
     g.addEdge(vertArray[9], vertArray[0], -2);
     System.out.println("Adding edge (9, 3) with weight 2.");
     g.addEdge(vertArray[9], vertArray[3], 2);
+
     System.out.println("Adding edge (1, 6) with weight 8.");
     g.addEdge(vertArray[1], vertArray[6], 8);
     System.out.println("Adding edge (9, 7) with weight 5.");
@@ -502,9 +506,47 @@ public class WUGTest {
                          " but should return 3.");
       degreeDeduction = 1;
     }
+/*
+    System.out.println("**************");
+    testsample = (DListNode) g.vht().find(vertArray[1]).value();
+    try{
+      System.out.println(testsample.item());  
+    }catch(InvalidNodeException e){
+      System.out.println(e);
+    }
 
+    testsample = (DListNode) g.vht().find(vertArray[6]).value();
+    try{
+      System.out.println(testsample.item());  
+    }catch(InvalidNodeException e){
+      System.out.println(e);
+    }
+    System.out.println("**************");
+
+
+*/
     System.out.println("Removing edge (1, 6).");
     g.removeEdge(vertArray[1], vertArray[6]);
+
+/*
+    System.out.println("**************");
+    testsample = (DListNode) g.vht().find(vertArray[1]).value();
+    try{
+      System.out.println(testsample.item());  
+    }catch(InvalidNodeException e){
+      System.out.println(e);
+    }
+
+    testsample = (DListNode) g.vht().find(vertArray[6]).value();
+    try{
+      System.out.println(testsample.item());  
+    }catch(InvalidNodeException e){
+      System.out.println(e);
+    }
+    System.out.println("**************");
+
+*/
+
     result = g.edgeCount();
     if (result != 7) {
       System.out.println("edgeCount() returns " + result +
@@ -534,8 +576,88 @@ public class WUGTest {
       remEDeduction = 1;
     }
 
+/*    
+    System.out.println("**************");
+    DListNode testsample = (DListNode) g.vht().find(vertArray[3]).value();
+    try{
+      System.out.println(testsample.item());  
+    }catch(InvalidNodeException e){
+      System.out.println(e);
+    }
+
+    testsample = (DListNode) g.vht().find(vertArray[7]).value();
+    try{
+      System.out.println(testsample.item());  
+    }catch(InvalidNodeException e){
+      System.out.println(e);
+    }
+
+    testsample = (DListNode) g.vht().find(vertArray[9]).value();
+    try{
+      System.out.println(testsample.item());  
+    }catch(InvalidNodeException e){
+      System.out.println(e);
+    }
+
+    testsample = (DListNode) g.vht().find(vertArray[1]).value();
+    try{
+      System.out.println(testsample.item());  
+    }catch(InvalidNodeException e){
+      System.out.println(e);
+    }
+
+*/    /*testsample = (DListNode) g.vht().find(vertArray[6]).value();
+    try{
+      System.out.println(testsample.item());  
+    }catch(InvalidNodeException e){
+      System.out.println(e);
+    }
+    System.out.println("**************");
+    */
     System.out.println("Removing vertex 3.");
     g.removeVertex(vertArray[3]);
+
+/*
+    System.out.println("**************");
+    // testsample = (DListNode) g.vht().find(vertArray[3]).value();
+    // try{
+    //   System.out.println(testsample.item());  
+    // }catch(InvalidNodeException e){
+    //   System.out.println(e);
+    // }
+
+    testsample = (DListNode) g.vht().find(vertArray[7]).value();
+    try{
+      System.out.println(testsample.item());  
+    }catch(InvalidNodeException e){
+      System.out.println(e);
+    }
+
+    testsample = (DListNode) g.vht().find(vertArray[9]).value();
+    try{
+      System.out.println(testsample.item());  
+    }catch(InvalidNodeException e){
+      System.out.println(e);
+    }
+
+    testsample = (DListNode) g.vht().find(vertArray[1]).value();
+    try{
+      System.out.println(testsample.item());  
+    }catch(InvalidNodeException e){
+      System.out.println(e);
+    }
+*/
+
+
+    /*testsample = (DListNode) g.vht().find(vertArray[6]).value();
+    try{
+      System.out.println(testsample.item());  
+    }catch(InvalidNodeException e){
+      System.out.println(e);
+    }
+    */
+    // System.out.println("**************");
+
     result = g.vertexCount();
     if (result != 9) {
       System.out.println("vertexCount() returns " + result +
@@ -751,7 +873,7 @@ public class WUGTest {
 
     Object vertArray[] = new Object[VERTICES];
     for (i = 0; i < VERTICES; i++) {
-      vertArray[i] = new Nothing();
+      vertArray[i] = new Nothing(i);
     }
 
     int score = 14 - vertexTest(vertArray) - edgeTest(vertArray);
@@ -766,4 +888,14 @@ public class WUGTest {
 }
 
 class Nothing {
+  int index;
+  public Nothing(int i){
+    this.index = i;
+  }
+
+  public String toString(){
+    String out = "v:";
+    out += this.index;
+    return out;
+  }
 }

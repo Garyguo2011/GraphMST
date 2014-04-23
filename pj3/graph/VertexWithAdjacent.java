@@ -8,12 +8,30 @@ import list.*;
  * permitted.
  */
 
-class VertexWithAdjacent {
+public class VertexWithAdjacent {
 	Object item;
 	DList adjacentList;
 
-	protected VertexWithAdjacent(Object i){
+	VertexWithAdjacent(Object i){
 		this.item = i;
 		this.adjacentList = new DList();
+	}
+
+	public String toString(){
+		String out = item.toString() + " -> ";
+		try{
+			if(adjacentList.isEmpty()){
+				out	+= "adjacentList is Empty";
+			}else{
+				DListNode walker = (DListNode) adjacentList.front();
+				while(walker.isValidNode()){
+					out += ((EdgeWithPartner)walker.item()).toString() + " - ";
+					walker = (DListNode) walker.next();
+				}
+			}
+		}catch(InvalidNodeException e){
+			System.out.println(e);
+		}
+		return out;
 	}
 }
