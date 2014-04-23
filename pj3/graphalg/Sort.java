@@ -4,7 +4,9 @@ package graphalg;
 
 import graph.*;
 import set.*;
+import list.*;
 import dict.*;
+
 
 
 public class Sort {
@@ -35,7 +37,7 @@ public class Sort {
 		else{
 			int lo = lo0;
 	    	int hi = hi0;
-	    	int mid;
+	    	Edge mid;
 
 	    	if (hi0 > lo0) {
 
@@ -48,13 +50,13 @@ public class Sort {
 	       		while (lo <= hi) {
 	         		// find the first element that is greater than or equal to 
 	         		// the partition element starting from the left Index.
-	         		while((lo < hi0) && (a[lo].getWeight() < mid)) {
+	         		while((lo < hi0) && (a[lo].getWeight() < mid.getWeight())) {
 	           			lo++;
 	         		}
 
 	         		// find an element that is smaller than or equal to 
 	         		// the partition element starting from the right Index.
-	         		while((hi > lo0) && (a[hi].getWeight() > mid)) {
+	         		while((hi > lo0) && (a[hi].getWeight() > mid.getWeight())) {
 	           			hi--;
 	         		}
 	         		// if the indices have not crossed, swap them.
