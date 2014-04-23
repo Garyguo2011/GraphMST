@@ -4,6 +4,7 @@ package graphalg;
 
 import graph.*;
 import set.*;
+import list.*;
 import dict.*;
 
 /**

@@ -60,10 +60,10 @@ public class Kruskal {
 			Edge mstEdge = sortEdgeList[i];
 			Object obj1 = mstEdge.getObject1();
 			Object obj2 = mstEdge.getObject2();
-			int ver1 = (Integer) vertexHashTable.find(obj1);
-			int ver2 = (Integer) vertexHashTable.find(obj2);
+			int ver1 = (Integer) vertexHashTable.find(obj1).value();
+			int ver2 = (Integer) vertexHashTable.find(obj2).value();
 			if (graph.find(ver1) != graph.find(ver2)) {
-				edgesSet.union(ver1, ver2);
+				graph.union(ver1, ver2);
 				mst.addEdge(obj1, obj2, mstEdge.getWeight());
 			}
 		}
