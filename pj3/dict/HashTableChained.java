@@ -121,7 +121,7 @@ public class HashTableChained implements Dictionary {
   }
 
   private void reSizeHashTable(){
-    List[] oldHashTable = hashtable;
+    List[] oldHashTable = hashTable;
     this.hashTable = new DList[oldHashTable.length * 2];
     this.numOfEntries = 0;
     for (int i = 0; i < oldHashTable.length; i++) {
@@ -233,7 +233,7 @@ public class HashTableChained implements Dictionary {
   }
 
   public double loadFactor(){
-    return (double)numOfEntries / (double)hashtable.length();
+    return (double)numOfEntries / (double)hashTable.length;
   }
 
 

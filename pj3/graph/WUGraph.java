@@ -110,15 +110,15 @@ public class WUGraph {
       return;
     }
     try{
-      DListNode vNode = vertexHashTable.find(vertex);
+      DListNode vNode = (DListNode) vertexHashTable.find(vertex).value();
       VertexWithAdjacent v = (VertexWithAdjacent) vNode.item();
       if(!v.adjacentList.isEmpty()){
-        DListNode walker = v.adjacentList.front();
+        DListNode walker = (DListNode) v.adjacentList.front();
         while(walker.isValidNode()){
-          DListNode next = walker.next();
-          Object u = ((EdgeWithPartner)walker.item()).edge.object1;
-          Object v = ((EdgeWithPartner)walker.item()).edge.object2;
-          this.removeEdge(u, v);
+          DListNode next = (DListNode) walker.next();
+          Object o1 = ((EdgeWithPartner)walker.item()).edge.object1;
+          Object o2 = ((EdgeWithPartner)walker.item()).edge.object2;
+          this.removeEdge(o1, o2);
           walker = next;
         }
       }
@@ -154,8 +154,8 @@ public class WUGraph {
    */
   public int degree(Object vertex){
     try{
-      DListNode v = vertexHashTable.find(vertex);
-      if(v = null){
+      DListNode v = (DListNode) vertexHashTable.find(vertex).value();
+      if(v == null){
         return 0;
       }else{
         return ((VertexWithAdjacent)v.item()).adjacentList.length();
@@ -185,12 +185,12 @@ public class WUGraph {
    * Running time:  O(d), where d is the degree of "vertex".
    */
   public Neighbors getNeighbors(Object vertex){
-    if(!this.isVertex()){
+    if(!this.isVertex(vertex)){
       return null;
     }
     
     try{
-      DListNode vNode = vertexHashTable.find(vertex);
+      DListNode vNode = (DListNode)vertexHashTable.find(vertex).value();
       VertexWithAdjacent v = (VertexWithAdjacent) vNode.item();
       if(v.adjacentList.isEmpty()){
         return null;
@@ -201,7 +201,7 @@ public class WUGraph {
       ret.weightList = new int[v.adjacentList.length()];
       int index = 0;
 
-      DListNode walker = v.adjacentList.front();
+      DListNode walker = (DListNode) v.adjacentList.front();
       while(walker.isValidNode()){
         
         Object o1 = ((EdgeWithPartner)walker.item()).edge.object1;
@@ -216,7 +216,7 @@ public class WUGraph {
         ret.weightList[index] = weight;
 
         index++;
-        walker = next;
+        walker = (DListNode) walker.next();
       }
       return ret;
     }catch(InvalidNodeException e){
@@ -236,14 +236,14 @@ public class WUGraph {
    */
   public void addEdge(Object u, Object v, int weight){
     try{
-      DListNode uNode = (DListNode)vertexHashTable.find(u);
-      DListNode vNode = (DListNode)vertexHashTable.find(v);
+      DListNode uNode = (DListNode)vertexHashTable.find(u).value();
+      DListNode vNode = (DListNode)vertexHashTable.find(v).value();
       // not find either vertex
       if(uNode == null || vNode == null){
         return;
       }
 
-      DListNode eNode = (DListNode) edgeHashTable.find(new VertexPair(u, v));
+      DListNode eNode = (DListNode) edgeHashTable.find(new VertexPair(u, v)).value();
       // the edges alread exist, update the weight;
       if(eNode != null){
         EdgeWithPartner e = (EdgeWithPartner) eNode.item();
@@ -252,14 +252,17 @@ public class WUGraph {
         return;
       }
 
+      VertexWithAdjacent u1 = (VertexWithAdjacent)uNode.item();
+      VertexWithAdjacent v1 = (VertexWithAdjacent)vNode.item();
+
       WeightedVertexPair weightedEdge = new WeightedVertexPair(u, v, weight);
       // if it is Self-edges
       if(u.equals(v)){
         EdgeWithPartner selfEdge = new EdgeWithPartner(weightedEdge);
         u1.adjacentList.insertBack(selfEdge);
-        selfEdge.partner = u1.back();
-        selfEdge.self = u1.back();
-        edgeHashTable.insert(new VertexPair(u, v), u1.back());
+        selfEdge.partner = (DListNode) u1.adjacentList.back();
+        selfEdge.self = (DListNode) u1.adjacentList.back();
+        edgeHashTable.insert(new VertexPair(u, v), u1.adjacentList.back());
 
       }else{
         EdgeWithPartner eU = new EdgeWithPartner(weightedEdge);
@@ -267,11 +270,11 @@ public class WUGraph {
         u1.adjacentList.insertBack(eV);
         v1.adjacentList.insertBack(eU);
 
-        eU.self = u1.back();
-        eU.partner = v1.back();
+        eU.self = (DListNode) u1.adjacentList.back();
+        eU.partner = (DListNode) v1.adjacentList.back();
 
-        ev.self = v1.back();
-        eV.partner = u1.back();
+        eV.self = (DListNode) v1.adjacentList.back();
+        eV.partner = (DListNode) u1.adjacentList.back();
 
         edgeHashTable.insert(new VertexPair(u, v), eU.self);
       }
@@ -295,7 +298,7 @@ public class WUGraph {
     }
     try{
       VertexPair key = new VertexPair(u, v);
-      DListNode eNode = edgeHashTable.find(key);
+      DListNode eNode = (DListNode) edgeHashTable.find(key).value();
       ((EdgeWithPartner)eNode.item()).partner.remove();
       edgeHashTable.remove(key);
       eNode.remove();
@@ -316,7 +319,7 @@ public class WUGraph {
     if(!this.isVertex(u) || !this.isVertex(v)){
       return false;
     }
-    DListNode eNode = edgeHashTable.find(new VertexPair(u, v));
+    DListNode eNode = (DListNode) edgeHashTable.find(new VertexPair(u, v)).value();
     if(eNode == null){
       return false;
     }else{
@@ -341,7 +344,7 @@ public class WUGraph {
   public int weight(Object u, Object v){
     try{
       if (this.isEdge(u, v)) {
-        DListNode edgeNode = edgeHashTable.find(new VertexPair(u, v));
+        DListNode edgeNode = (DListNode) edgeHashTable.find(new VertexPair(u, v)).value();
         return ((EdgeWithPartner)edgeNode.item()).edge.weight;
       }
     }catch(InvalidNodeException e){
