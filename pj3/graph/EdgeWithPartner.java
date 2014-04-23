@@ -10,8 +10,8 @@ package graph;
 
 protected class EdgeWithPartner {
   protected WeightedVertexPair edge;
-  protected EdgeWithPartner partner;
-  protected VertexWithAdjacent self;
+  protected DListNode partner;
+  protected DListNode self;
   // protected VertexWithAdjacent opponent;
 
   protected EdgeWithPartner(WeightedVertexPair i){

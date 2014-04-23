@@ -15,8 +15,4 @@ protected class VertexWithAdjacent {
 		this.item = i;
 		this.adjacentList = new DList();
 	}
-
-	protected void addAdjacentEdges(){
-
-	}
 }
