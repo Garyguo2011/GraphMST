@@ -4,6 +4,7 @@ package graphalg;
 
 import graph.*;
 import set.*;
+import dict.*;
 
 
 /**
@@ -31,7 +32,7 @@ public class Kruskal {
   	int counter = 0;
 
   	for (int i = 0; i < numVertices; i++){
-  		Object curVertex = vertices[i]
+  		Object curVertex = vertices[i];
   		vertexHashTable.insert(curVertex, counter);
   		counter++;
   		mst.addVertex(curVertex);
@@ -47,28 +48,29 @@ public class Kruskal {
   				k++;
   			}
   		}
-
-  		Edge sortEdgeList = edgeListResize(edgeList);
-  		Sort.quickSort(sortEdgeList);
-
-  		DisjointSets graph = new DisjointSets(numVertices);
-  		for (int i = 0; i < sortEdgeList.length; i++){
-  			Edge mstEdge = sortEdgeList[i];
-  			Object obj1 = mstEdge.getObject1();
-  			Object obj2 = mstEdge.getObject2();
-  			int ver1 = (Integer) vertexHashTable.find(obj1);
-  			int ver2 = (Integer) vertexHashTable.find(obj2);
-  			if (graph.find(ver1) != graph.find(ver2)) {
-					edgesSet.union(ver1, ver2);
-					mst.addEdge(obj1, obj2, mstEdge.getWeight());
-				}
-  		}
   	}
+
+		Edge[] sortEdgeList = edgeListResize(edgeList);
+		Sort.quickSort(sortEdgeList);
+
+		DisjointSets graph = new DisjointSets(numVertices);
+		for (int i = 0; i < sortEdgeList.length; i++){
+			Edge mstEdge = sortEdgeList[i];
+			Object obj1 = mstEdge.getObject1();
+			Object obj2 = mstEdge.getObject2();
+			int ver1 = (Integer) vertexHashTable.find(obj1);
+			int ver2 = (Integer) vertexHashTable.find(obj2);
+			if (graph.find(ver1) != graph.find(ver2)) {
+				edgesSet.union(ver1, ver2);
+				mst.addEdge(obj1, obj2, mstEdge.getWeight());
+			}
+		}
+	
   	return mst;
   	
   }
 
-  protected Edge[] edgeListResize(Edge[] eList){
+  protected static Edge[] edgeListResize(Edge[] eList){
   	int count = 0;
   	for (int i = 0; i < eList.length; i++){
   		if (eList[i] == null){
