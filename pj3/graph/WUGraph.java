@@ -22,6 +22,7 @@ public class WUGraph {
   /**
    * WUGraph() constructs a graph having no vertices or edges.
    *
+   * @return a new WUGraph
    * Running time:  O(1).
    */
   public WUGraph(){
@@ -35,6 +36,7 @@ public class WUGraph {
   /**
    * vertexCount() returns the number of vertices in the graph.
    *
+   * @return the number of vertices in the graph.
    * Running time:  O(1).
    */
   public int vertexCount(){
@@ -44,6 +46,7 @@ public class WUGraph {
   /**
    * edgeCount() returns the total number of edges in the graph.
    *
+   * @return total number of edges in the graph.
    * Running time:  O(1).
    */
   public int edgeCount(){
@@ -59,6 +62,9 @@ public class WUGraph {
    * (NOTE:  Do not return any internal data structure you use to represent
    * vertices!  Return only the same objects that were provided by the
    * calling application in calls to addVertex().)
+   *
+   * @return total number of edges in the graph an array containing all 
+   *         the objects that serve as vertices of the graph.
    *
    * Running time:  O(|V|).
    */
@@ -86,7 +92,9 @@ public class WUGraph {
    * addVertex() adds a vertex (with no incident edges) to the graph.
    * The vertex's "name" is the object provided as the parameter "vertex".
    * If this object is already a vertex of the graph, the graph is unchanged.
-   *
+   * 
+   * @param vertex - a object that represents a vertex
+   * 
    * Running time:  O(1).
    */
   public void addVertex(Object vertex){
@@ -102,6 +110,8 @@ public class WUGraph {
    * removeVertex() removes a vertex from the graph.  All edges incident on the
    * deleted vertex are removed as well.  If the parameter "vertex" does not
    * represent a vertex of the graph, the graph is unchanged.
+   *
+   * @param vertex - a object that represents a vertex
    *
    * Running time:  O(d), where d is the degree of "vertex".
    */
@@ -135,6 +145,9 @@ public class WUGraph {
    * isVertex() returns true if the parameter "vertex" represents a vertex of
    * the graph.
    *
+   * @param vertex - a object that represents a vertex
+   * @return true if vertex is in this graph otherwise false.
+   *
    * Running time:  O(1).
    */
   public boolean isVertex(Object vertex){
@@ -150,6 +163,9 @@ public class WUGraph {
    * degree of a vertex.  If the parameter "vertex" doesn't represent a vertex
    * of the graph, zero is returned.
    *
+   * @param vertex - a object that represents a vertex
+   * @return the degree of a vertex
+   * 
    * Running time:  O(1).
    */
   public int degree(Object vertex){
@@ -180,6 +196,12 @@ public class WUGraph {
    * (NOTE:  In the neighborList array, do not return any internal data
    * structure you use to represent vertices!  Return only the same objects
    * that were provided by the calling application in calls to addVertex().)
+   *
+   * @param vertex - a object that represents a vertex
+   * @return a new Neighbors object referencing two array. The 
+   *         Neighbors.neighborList array contains each object that is connected
+   *         to the input object by an edge.  The Neighbors.weightList array 
+   *         contains the weights of the corresponding edges.
    *
    * Running time:  O(d), where d is the degree of "vertex".
    */
@@ -230,6 +252,10 @@ public class WUGraph {
    * The edge is assigned a weight of "weight".  If the graph already contains
    * edge (u, v), the weight is updated to reflect the new value.  Self-edges
    * (where u == v) are allowed.
+   *
+   * @param u - a object that represents a vertex
+   * @param v - a object that represents a vertex
+   * @param weight - a int represents the weight of this edge
    *
    * Running time:  O(1).
    */
@@ -293,6 +319,9 @@ public class WUGraph {
    * is unchanged.  If (u, v) is not an edge of the graph, the graph is
    * unchanged.
    *
+   * @param u - a object that represents a vertex
+   * @param v - a object that represents a vertex
+   *
    * Running time:  O(1).
    */
   public void removeEdge(Object u, Object v){
@@ -324,6 +353,10 @@ public class WUGraph {
    * if (u, v) is not an edge (including the case where either of the
    * parameters u and v does not represent a vertex of the graph).
    *
+   * @param u - a object that represents a vertex
+   * @param v - a object that represents a vertex
+   * @return true if the edge is in graph, false otherwise
+   * 
    * Running time:  O(1).
    */
   public boolean isEdge(Object u, Object v){
@@ -349,6 +382,10 @@ public class WUGraph {
    * However, some sort of default response is necessary for missing edges,
    * so we return zero.  An exception would be more appropriate, but also more
    * annoying.)
+   *
+   * @param u - a object that represents a vertex
+   * @param v - a object that represents a vertex
+   * @return a int represent the weight with the edges with u, v as two ends
    *
    * Running time:  O(1).
    */

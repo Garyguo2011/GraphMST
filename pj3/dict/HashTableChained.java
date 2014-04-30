@@ -232,85 +232,12 @@ public class HashTableChained implements Dictionary {
     numOfEntries = 0;
   }
 
+  /**
+   * Calculate the load factor of the hashtable
+   * 
+   * @return a double represent its load factor
+   */
   public double loadFactor(){
     return (double)numOfEntries / (double)hashTable.length;
   }
-
-
-  /* Addtional function for Collision Analysis */
-  /*  
-  public void collisionsRate(){
-    int collisions = 0;
-    for (int i = 0; i < hashTable.length; i++) {
-      if (hashTable[i] != null){
-        if(hashTable[i].length() > 1){
-          collisions += hashTable[i].length() - 1;
-        }
-      }
-    }
-    float colRate = (float) collisions / (float) hashTable.length;
-    System.out.println("collisions: " + collisions);
-    System.out.println("hashTable: " + hashTable.length);
-    System.out.println("collisionsRate: " + colRate);
-    return;
-  }
-  */
-  /* Addtional function for print hashtable to string */
-
-  /* toString version 1: */
-  /*    
-  public String toString(){
-    String outString = "";
-    for (int i = 0; i < hashTable.length; i++) {
-      outString += "Bucket[" + i + "]: "; 
-      if (hashTable[i] == null){
-        outString += "NULL\n";
-      }else{
-        try{
-          ListNode walker = hashTable[i].front();
-          if(walker.isValidNode()){
-            outString += "ListSize[" + hashTable[i].length() + "]: ";
-            outString += (Integer)((Entry)walker.item()).key() + ": " + (Integer)((Entry)walker.item()).value() + " -> ";
-          }
-          while(walker.next().isValidNode()){
-            outString += (Integer)((Entry)walker.next().item()).key() + ": " + (Integer)((Entry)walker.next().item()).value() + " -> ";
-            walker = walker.next();
-          }
-        }catch(InvalidNodeException e){
-          System.out.println(e);
-        }
-        outString += "\n";
-      }
-    }
-    return outString;
-  }
-  */
-
-  public String toString(){
-    String outString = "";
-    for (int i = 0; i < hashTable.length; i++) {
-      outString += "Bucket[" + i + "]: "; 
-      if (hashTable[i] == null){
-        outString += "NULL\n";
-      }else{
-        try{
-          ListNode walker = hashTable[i].front();
-          if(walker.isValidNode()){
-            outString += "ListSize[" + hashTable[i].length() + "]: ";
-            outString += "Bval: " + (Integer)((Entry)walker.item()).value() + " -> ";
-          }
-          while(walker.next().isValidNode()){
-            outString += "Bval: " + (Integer)((Entry)walker.next().item()).value() + " -> ";
-            walker = walker.next();
-          }
-        }catch(InvalidNodeException e){
-          System.out.println(e);
-        }
-        outString += "\n";
-      }
-    }
-    return outString;
-  }
-
-
 }
