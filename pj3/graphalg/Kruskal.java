@@ -72,6 +72,13 @@ public class Kruskal {
   	
   }
 
+  /**
+   *  edgeListResize() resizes the input edge array from numVertices * numVertices
+   *  to the exact number of edges it has.
+   *
+   *  @param eList is the input edge array with size == numvertices * numVertices.
+   *  @return the resized edge list which has size == numEdges.
+   **/
   protected static Edge[] edgeListResize(Edge[] eList){
   	int count = 0;
   	for (int i = 0; i < eList.length; i++){
